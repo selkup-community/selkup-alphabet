@@ -1,4 +1,12 @@
 #!/usr/bin/python3
+#
+# Coding (c) Fyodor Sizov, 2017
+# Alphabet specification (c) Grigoriy Korotkih, Fyodor Sizov, 2017
+#
+# The code is based on the Selkup.Tk alphabet specification and may be updated regularly:
+# http://selkup.tk/alphabet-specification
+#
+#
 
 class uni:
 	strict = [
