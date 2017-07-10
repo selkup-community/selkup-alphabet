@@ -75,7 +75,7 @@ class uni:
 		string = string.replace("̈", "")
 		return string
 	@staticmethod
-	def unify(string):
+    def unify(string, strict_only = False):
 		strict_result = string
 		for group in uni.strict:
 			for query in group[0]:
@@ -85,7 +85,10 @@ class uni:
 		for group in uni.soft:
 			for query in group[0]:
 				soft_result = soft_result.replace(query, ''.join(["?" for x in range(len(query))]))
-		return strict_result, soft_result
+        if strict_only:
+            return strict_result
+        else:
+            return strict_result, soft_result
 	@staticmethod
 	def soft_compare(string, soft_query):
 		if len(string) != len(soft_query):
