@@ -76,15 +76,15 @@ class uni:
 		return string
 	@staticmethod
     def unify(string, strict_only = False):
-		strict_result = string
-		for group in uni.strict:
-			for query in group[0]:
-				strict_result = strict_result.replace(query, group[1])
+	strict_result = string
+	for group in uni.strict:
+		for query in group[0]:
+			strict_result = strict_result.replace(query, group[1])
 		#
-		soft_result = strict_result
-		for group in uni.soft:
-			for query in group[0]:
-				soft_result = soft_result.replace(query, ''.join(["?" for x in range(len(query))]))
+	soft_result = strict_result
+	for group in uni.soft:
+		for query in group[0]:
+			soft_result = soft_result.replace(query, ''.join(["?" for x in range(len(query))]))
         if strict_only:
             return strict_result
         else:
