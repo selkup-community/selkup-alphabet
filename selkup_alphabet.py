@@ -102,7 +102,8 @@ class Compare:
         self.first = self.clean(first)
         self.second = self.clean(second)
 
-    def clean(self, query):
+    @staticmethod
+    def clean(query):
         query = query.replace("̄", "")
         query = query.replace("̈", "")
         extension_symbols = [
@@ -132,3 +133,22 @@ class Compare:
                     query = query.replace(subgroup[i], subgroup[-1])
 
         return query
+
+    def first_starts(self):
+        return self.first.startswith(self.second)
+
+    def first_includes(self):
+        return self.second in self.first
+
+    def first_ends(self):
+        return self.first.endswith(self.second)
+
+    def equal(self):
+        return self.first == self.second
+
+    def combine(self, *args):
+        for arg in args:
+            if self.__getattribute__(arg):
+                return self.__getattribute__(arg)
+        return False
+
