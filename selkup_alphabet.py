@@ -98,34 +98,37 @@ class Uni:
 
 
 class Compare:
-    def __init__(self, first, second):
-        self.first = self.clean(first)
-        self.second = self.clean(second)
+    def __init__(self, first, second=False):
+        if second:
+            self.first = self.clean(first)
+            self.second = self.clean(second)
+        else:
+            self.first = first
 
-    @staticmethod
-    def clean(query):
+    extension_symbols = [
+        [
+            ["ё̄", "е̄", "е"],
+            ["ы̄", "ы"],
+            ["ӧ", "ӧ̄", "о̄", "о"],
+            ["ю̈", "ю̈̄", "ю̄"],
+            ["я̄", "я"],
+            ["ӭ", "ӭ̄", "э̄", "э"],
+            ["ӓ", "ӓ̄", "ā", "а"],
+            ["ӱ", "ӱ̄", "ӯ", "у"],
+            ["и̇", "и̇̄", "ӣ", "и"],
+            ["ӷ", "г"],
+            ["ӄ", "к"],
+            ["ӈ", "н"],
+            ["җ", "ж"],
+            ["ҳ", "х"],
+            ["ҷ", "ч"]
+        ]
+    ]
+
+    def clean(self, query):
         query = query.replace("̄", "")
         query = query.replace("̈", "")
-        extension_symbols = [
-            [
-                ["ё̄", "е̄", "е"],
-                ["ы̄", "ы"],
-                ["ӧ", "ӧ̄", "о̄", "о"],
-                ["ю̈", "ю̈̄", "ю̄"],
-                ["я̄", "я"],
-                ["ӭ", "ӭ̄", "э̄", "э"],
-                ["ӓ", "ӓ̄", "ā", "а"],
-                ["ӱ", "ӱ̄", "ӯ", "у"],
-                ["и̇", "и̇̄", "ӣ", "и"],
-                ["ӷ", "г"],
-                ["ӄ", "к"],
-                ["ӈ", "н"],
-                ["җ", "ж"],
-                ["ҳ", "х"],
-                ["ҷ", "ч"]
-            ]
-        ]
-        for group in extension_symbols:
+        for group in self.extension_symbols:
             for subgroup in group:
                 for i in range(len(subgroup)):
                     if i == len(subgroup) - 1:
@@ -133,6 +136,32 @@ class Compare:
                     query = query.replace(subgroup[i], subgroup[-1])
 
         return query
+
+    def is_endsym(self, sym):
+        for group in self.extension_symbols:
+            for subgroup in group:
+                if subgroup[-1] == sym:
+                    return True
+
+        return False
+
+    def is_extension(self, sym):
+        for group in self.extension_symbols:
+            for subgroup in group:
+                if sym in subgroup[:-1]:
+                    return True
+
+        return False
+
+    def get_unaffected_start(self):
+        string = ''
+        for sym in self.first:
+            if not self.is_endsym(sym) and not self.is_extension(sym):
+                string += sym
+            else:
+                return string
+
+        return string
 
     def first_starts(self):
         return self.first.startswith(self.second)
