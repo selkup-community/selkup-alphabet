@@ -127,8 +127,8 @@ class Compare:
     ]
 
     def clean(self, query):
-        query = query.replace("̄", "")
-        query = query.replace("̈", "")
+        for pattern in ["̈", "̄", "́"]:
+            query = query.replace(pattern, "")
         for group in self.extension_symbols:
             for subgroup in group:
                 for i in range(len(subgroup)):
