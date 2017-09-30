@@ -103,3 +103,5 @@ ENV/
 # .swp files
 *.swp
 .*.swp
+
+.idea/
