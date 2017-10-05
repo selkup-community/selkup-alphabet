@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 """
-SRDS -> SOP (Selkup.TK) convertation schema
+SRDS -> Selkup.ORG Spec convertation schema
 """
 
 strict = [
