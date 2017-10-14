@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 from srds import *
+from srsi import *
 
 def short(string):
     string = string.replace("̄", "")
