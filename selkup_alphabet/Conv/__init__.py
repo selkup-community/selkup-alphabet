@@ -15,12 +15,15 @@ def unify(string, strict, soft, strict_only=False):
     for group in strict:
         for query in group[0]:
             strict_result = strict_result.replace(query, group[1])
-            strict_result = strict_result.replace(query[0].upper() + query[1:], group[0].upper() + group[0][1:])
+            strict_result = strict_result.replace(
+                query[0].upper() + query[1:],
+                group[1][0].upper() + group[1][1:]
+            )
     #
     soft_result = strict_result
     for group in soft:
         for query in group[0]:
-            soft_result = soft_result.replace(query, ''.join(["?" for _ in range(len(query))]))
+            soft_result = soft_result.replace(query, ''.join(["?" for _ in query]))
     if strict_only:
         return strict_result
     else:
