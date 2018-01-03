@@ -73,6 +73,9 @@ class Compare:
     def first_starts(self):
         return self.first.startswith(self.second)
 
+    def first_ends(self):
+        return self.first.endswith(self.second)
+
     def first_includes(self):
         return self.second in self.first
 
